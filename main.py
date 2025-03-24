@@ -27,6 +27,8 @@ def main():
 
     dt = 0 # delta time
 
+    score = 0
+
     # main game loop
     while True:
         for event in pygame.event.get():
@@ -38,6 +40,7 @@ def main():
         for asteroid in asteroids:
             if asteroid.collision_check(player):
                 print("GAME OVER")
+                print("Score: ", score)
                 pygame.quit()
                 return
             
@@ -46,12 +49,13 @@ def main():
                 if asteroid.collision_check(bullet):
                     bullet.kill()
                     asteroid.split()
+                    score += 1
 
         screen.fill((0, 0, 0), rect=None, special_flags=0)
 
         for obj in drawable:
             obj.draw(screen)
-            
+
         pygame.display.flip()
 
         # limit the framerate to 60 FPS
